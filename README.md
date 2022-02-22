@@ -1,5 +1,5 @@
 # Algos-Guard
-Victorius Zamaında Yaptım Eski Guard Kullanmak İsteyen Kullana Bilir İş Görür 
+Victorius Zamaında Yaptım Eski V12 Guard Bildiniz Üzere 30 Nisanda Discord.js V6 V7 Apı Kapndından Dolayı Node.jsV11 Node.jsV12 Sürümleri Durdurulucaktır Bende V13 Çekmeye Başladım Projeyi Geliştirdim V12 Eski Halini Paylaşmak İstedim
 
 `config.json` Editleyerek Sistemi Basit Bir Şekilde Kurula Bilicek Kadar Kolay
 
