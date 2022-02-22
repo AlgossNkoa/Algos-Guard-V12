@@ -148,7 +148,7 @@ client.on("guildBanAdd", async (guild, member) => {
             client.channels.cache.get(config.log).send(`@everyone  \`•❯\` <@${yapan.id}> | (\`${yapan.id}\`) Kulanıcısı <@${hedef.id}> | (\`${hedef.id}\`) Kulanıcısına Şağ Tık Yasakladığı için Sunucudan Yasaklandı!`)
             let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
             guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
-                //client.roleBackup.set(huh.id, huh.permissions.bitfield)
+                
                 huh.setPermissions(0)
             })
             await guild.members.ban(yapan.id, { reason: "Birden fazla kullanıcıya sağ tık ban işlemi uygulamak" })
@@ -326,7 +326,7 @@ client.on("roleUpdate", async (oldRole, newRole) => {
                 client.blackList.push(yapan.id)
                 let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
                 newRole.guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && newRole.guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
-                    //client.roleBackup.set(huh.id, huh.permissions.bitfield)
+                  
                     huh.setPermissions(0)
                 })
                 roles.map(async (x) => {
