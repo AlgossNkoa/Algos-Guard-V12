@@ -1,0 +1,42 @@
+{
+"botPrefix": ".",
+   
+"fullsafe":[],
+
+"rolsafe":[],
+
+"channelsafe":[],
+
+"bansafe":[],
+
+"kicksafe":[],
+
+"botrol":[],
+
+"blacklist":[],
+
+"bot":[],
+
+ "token":"",
+    "log":"",
+    "ses":"",
+    "durum":"Developed by Λlgos Nkoa.",
+    "status":"dnd",
+    "guildID":"",
+    "ownerID":"",
+    "sunucuadı":"",
+    "url":"",
+    "weplog":"",
+    "Botfooter":"Developed by Λlgos Nkoa.",
+    "footer":"Developed by Λlgos Nkoa.",
+    
+    "onay":"",
+    "red":"",
+    "ok":"",
+    
+    "banlimit":"1",
+    "kicklimit":"1",
+    "roleklelimit":"1",
+    "kanaleklelimit":"1"
+    
+}
