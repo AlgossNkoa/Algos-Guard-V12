@@ -77,7 +77,6 @@ client.on("roleCreate", async (role) => {
         client.channels.cache.get(config.log).send(`@everyone \`•❯\` <@${yapan.id}> | (\`${yapan.id}\`) Kullanıcısı Rol Oluşturdu İçin Sunucudan Yasaklandı! ,Olusturulan Roller silindi ${onay} \n\`•❯\`Açtığı roller:\n \`\`\`•❯ ${limit.map(x => role.guild.roles.cache.get(x).name).join("\n")}\`\`\``)
         let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
         role.guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && role.guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
-           // client.roleBackup.set(huh.id, huh.permissions.bitfield)
             huh.setPermissions(0)
         })
         await role.guild.members.ban(yapan.id, { reason: "Rol açmak" })
@@ -98,21 +97,12 @@ client.on("channelDelete", async (channel) => {
         client.channels.cache.get(config.log).send(`@everyone \`•❯\` <@${yapan.id}> | (\`${yapan.id}\`) Kulanıcısı **${channel.name}** | (\`${channel.id}\`) Kanalını Silme Nedeniyle sunucudan Yasaklandı!`)
         let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
         channel.guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && channel.guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
-          //  client.roleBackup.set(huh.id, huh.permissions.bitfield)
+    
             huh.setPermissions(0)
         })
         await channel.guild.members.ban(yapan.id, { reason: "Sunucuda Kanal silmek" })
         client.blackList.push(yapan.id)
     })
-});
-
-client.on("guildUnavailable", async (guild) => {
-    let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
-    guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
-       // client.roleBackup.set(huh.id, huh.permissions.bitfield)
-        huh.setPermissions(0)
-    })
-    client.channels.cache.get(config.log).send(`@everyone ⚠️ Maalesef Sunucu Patlatılıp Kullanılamaz Hale Geldiği İçin Suncu Toparlana Kadar Koruma Amacıyla Yetkileri Kapatım ${onay}`)
 });
 
 client.on("guildMemberAdd", async (member) => {
