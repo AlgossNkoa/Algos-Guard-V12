@@ -469,12 +469,12 @@ client.on("message", async message => {
     if (message.channel.type !== "text") return;
     if (!message.guild) return;
     let prefikslerim = [config.botPrefix];
-    let tokuchim = false;
+    let algoscum = false;
     for (const içindeki of prefikslerim) {
-        if (message.content.startsWith(içindeki)) tokuchim = içindeki;
+        if (message.content.startsWith(içindeki)) algoscum = içindeki;
     }
-    if (!tokuchim) return;
-    const args = message.content.slice(tokuchim.length).trim().split(/ +/g);
+    if (!algoscum) return;
+    const args = message.content.slice(algoscum.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     const event = message.content.toLower;
     const split = message.content.split('"');
