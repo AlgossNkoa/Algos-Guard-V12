@@ -501,7 +501,7 @@ client.on("message", async message => {
         if (!config.ownerID.includes(message.author.id)) return
         if (!args[0]) return message.channel.send(`${red}\`hata:\` Bir Argüman Belirt! \`.safe liste\``)
         if (args[0] == "liste") {
-        const embed = new Discord.MessageEmbed()
+        const nkoaembed = new Discord.MessageEmbed()
         .setDescription(`\`\`\`fix
             Sunucusunun Safe Liste Sıralaması
 \`\`\`\n\n\`•❯\` **Full Safe: Dokunulmaz Kullanıcılar.**\n${config.fullsafe.map(x => `<@${x}> (\`${x}\`)`).join("\n")}\n\`•❯\` **Rol Safe : Rolleri Kontrol Edebilicek Kullanıcılar**\n${config.rolsafe.map(x => `<@${x}> (\`${x}\`)`).join("\n")}\n\`•❯\`**Kanal Safe : Kanalları Kontrol Edebilicek Kullanıcılar.**\n${config.channelsafe.map(x => `<@${x}> (\`${x}\`)`).join("\n")}\n\`•❯\` **Ban Safe: Rahat Bir Şekilde Ban Atabilicek Kullanıcılar.**\n${config.bansafe.map(x => `<@${x}> (\`${x}\`)`).join("\n")}\n\`•❯\` **Kick Safe: Sunucu Üyelerini Rahat Bir Şekilde Sunucdan Atabilen Kullanıcılar.**\n${config.kicksafe.map(x => `<@${x}> (\`${x}\`)`).join("\n")}\n\`•❯\` **Bot Safe: Dokunulmaz Botlar.**\n${config.bot.map(x => `<@${x}> (\`${x}\`)`).join("\n")}`)
@@ -526,7 +526,7 @@ client.on("message", async message => {
         .setFooter(config.footer)   
         .setColor("#FEB3B3")
         
-        message.channel.send(embed)
+        message.channel.send(nkoaembed)
         }
     }
 });
