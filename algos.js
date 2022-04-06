@@ -2,8 +2,10 @@ const Discord = require("discord.js");
 const axios = require("axios")
 const client = new Discord.Client();
 const config = require('./config.json')
+const logs = require('./logs.json')
+const safe = require('./safe.json')
 const ms = require("ms") 
-const { onay, red } = require("./config.json")
+const { onay, red } = require("./emojis.json")
 client.rolLimit = new Map(); //
 client.kanalKoruma = new Map();
 client.rolName = new Map()
@@ -14,11 +16,11 @@ client.roleBackup = new Map()
 client.roleCreate = new Map()
 client.on("ready", () => {
     setInterval(() => {
-        const customStatus = [config.durum]
+        const customStatus = [config.Bots_game]
         const reloadStatus = Math.floor(Math.random() * (customStatus.length));
-        client.user.setActivity(`${customStatus[reloadStatus]}`, { type: "PLAYING"})
+        client.user.setActivity(`${customStatus[reloadStatus]}`, { type: config.Bots_type})
       }, 10000);
-      let botVoiceChannel = client.channels.cache.get(config.ses);
+      let botVoiceChannel = client.channels.cache.get(config.Bots_voiceChannels);
       if (botVoiceChannel) botVoiceChannel.join().catch(err => console.error("[~ΛLGOS GUARD~] Bot ses kanalına bağlanamadı!"));
     console.log(client.user.tag)
 })
@@ -26,11 +28,11 @@ client.on("roleDelete", async (role) => {
     await role.guild.fetchAuditLogs({ type: "ROLE_DELETE" }).then(async (audit) => {
         let ayar = audit.entries.first()
         let yapan = ayar.executor
-        if (config.rolsafe.includes(yapan.id)) return
-        if (config.fullsafe.includes(yapan.id)) return
+        if (safe.rolesafe.includes(yapan.id)) return
+        if (safe.fullsafe.includes(yapan.id)) return
         if (config.ownerID.includes(yapan.id)) return
         if (Date.now() - ayar.createdTimestamp > 5000) return;
-        client.channels.cache.get(config.log).send(`@everyone \`•❯\` <@${yapan.id}>-(\`${yapan.id}\`) Kullanıcısı Rol Sildi Ve Sunucudan Yasaklandı!`)
+        client.channels.cache.get(logs.Guard_log).send(`@everyone \`••❯\` <@${yapan.id}>-(\`${yapan.id}\`) Kullanıcısı Rol Sildi Ve Sunucudan Yasaklandı!`)
         let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
         role.guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && role.guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
             client.roleBackup.set(huh.id, huh.permissions.bitfield)
@@ -46,10 +48,11 @@ client.on("guildIntegrationsUpdate", async(guild) => {
 	let ayar = audit.entries.first()
 	let yapan = ayar.executor
 	if (Date.now() - ayar.createdTimestamp > 5000) return
-    if (config.fullsafe.includes(yapan.id)) return
+    if (safe.fullsafe.includes(yapan.id)) return
 if 
 (config.ownerID.includes(yapan.id)) return
-	client.channels.cache.get(config.log).send(`@everyone \`•❯\` <@${yapan.id}>-(\`${yapan.id}\`) Kullanıcısı Entegrasyon Ayarlarıyla Onaydı (\`Entegrasyondan Bot Kaldırmak\`) Sebebi Nedeniyle Sunucdan Yasaklandı!`)
+
+	client.channels.cache.get(logs.Guard_log).send(`@everyone \`••❯\` <@${yapan.id}>-(\`${yapan.id}\`) Kullanıcısı Entegrasyon Ayarlarıyla Onaydı (\`Entegrasyondan Bot Kaldırmak\`) Sebebi Nedeniyle Sunucdan Yasaklandı!`)
         let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
         guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
             client.roleBackup.set(huh.id, huh.permissions.bitfield)
@@ -64,9 +67,9 @@ client.on("roleCreate", async (role) => {
     await role.guild.fetchAuditLogs({ type: "ROLE_CREATE" }).then(async (audit) => {
         let ayar = audit.entries.first()
         let yapan = ayar.executor
-        if (config.fullsafe.includes(yapan.id)) return
-        if (config.rolsafe.includes(yapan.id)) return
-        if (config.rol_channelsafe.includes(yapan.id)) return
+        if (safe.fullsafe.includes(yapan.id)) return
+        if (safe.rolesafe.includes(yapan.id)) return
+ 
         if (config.ownerID.includes(yapan.id)) return
         
         if (Date.now() - ayar.createdTimestamp > 5000) return;
@@ -74,12 +77,12 @@ client.on("roleCreate", async (role) => {
         limit.push(role.id);
         client.roleCreate.set(yapan.id, limit);
         if (limit.length == config.roleklelimit) {
-        client.channels.cache.get(config.log).send(`@everyone \`•❯\` <@${yapan.id}> | (\`${yapan.id}\`) Kullanıcısı Rol Oluşturdu İçin Sunucudan Yasaklandı! ,Olusturulan Roller silindi ${onay} \n\`•❯\`Açtığı roller:\n \`\`\`•❯ ${limit.map(x => role.guild.roles.cache.get(x).name).join("\n")}\`\`\``)
+        client.channels.cache.get(logs.Guard_log).send(`@everyone \`••❯\` <@${yapan.id}> | (\`${yapan.id}\`) Kullanıcısı Rol Oluşturdu İçin Sunucudan Yasaklandı Ve Olusturulan Roller silindi ${onay} \n\`•❯\`Açtığı roller:\n \`\`\`•❯ ${limit.map(x => role.guild.roles.cache.get(x).name).join("\n")}\`\`\``)
         let arr = ["ADMINISTRATOR", "BAN_MEMBERS", "KICK_MEMBERS", "MANAGE_ROLES", "MANAGE_CHANNELS", "MANAGE_GUILD"]
         role.guild.roles.cache.filter(a => arr.some(x => a.permissions.has(x)) == true && role.guild.members.cache.get(client.user.id).roles.highest.rawPosition > a.rawPosition && !config.botrol.includes(a.id)).map(huh => {
             huh.setPermissions(0)
         })
-        await role.guild.members.ban(yapan.id, { reason: "Rol açmak" })
+        await role.guild.members.ban(yapan.id, { reason: "İzinsiz Rol Oluuşturma" })
         client.blackList.push(yapan.id)
     }
     })
@@ -100,7 +103,7 @@ client.on("channelDelete", async (channel) => {
     
             huh.setPermissions(0)
         })
-        await channel.guild.members.ban(yapan.id, { reason: "Sunucuda Kanal silmek" })
+        await channel.guild.members.ban(yapan.id, { reason: "izinsizSunucuda Kanal silmek" })
         client.blackList.push(yapan.id)
     })
 });
