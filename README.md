@@ -14,9 +14,9 @@ Airettende Bunları Kimi Nereye Koyduğnuzu Ve Kaç Kişi Olduğnu Öğrene Bilm
 
 `••》` Eğer Bir Hatayla Karşılaştıysan Yardıma İhtiyacın Varsa;
 
-`algos#0001` Hesabıma İlestişime Kura Bilirsin
+`thealgos.` Hesabıma İlestişime Kura Bilirsin
 
- https://discord.com/users/932958104843341844
+
  
 
 
